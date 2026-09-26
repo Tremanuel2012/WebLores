@@ -1,8 +1,7 @@
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { ArrowUp } from 'lucide-react';
-
 export const Layout = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
@@ -52,3 +51,4 @@ export const Layout = () => {
     </div>
   );
 };
+

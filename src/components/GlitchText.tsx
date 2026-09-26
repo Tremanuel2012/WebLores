@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-
 export const GlitchText = ({ text }: { text: string }) => {
   const [isGlitching, setIsGlitching] = useState(false);
 
@@ -19,3 +18,4 @@ export const GlitchText = ({ text }: { text: string }) => {
     </motion.span>
   );
 };
+
