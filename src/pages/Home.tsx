@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { getAllGames, getAllCharacters } from "../lib/content";
+import { getAllGames, getAllCharacters, getGameBySlug } from "../lib/content";
 import { Image } from "../components/Image";
 
 export const Home = () => {
@@ -63,15 +63,19 @@ export const Home = () => {
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         >
-          {[...characters, ...characters].map((char, i) => (
-            <div
-              key={i}
-              className="min-w-[200px] p-4 border border-white/10 rounded-xl bg-dark"
-            >
-              <p className="font-bold">{char.name}</p>
-              <p className="text-xs text-accent-primary">{char.game}</p>
-            </div>
-          ))}
+          {[...characters, ...characters].map((char, i) => {
+            const gameTitle = getGameBySlug(char.game)?.title || char.game;
+            return (
+              <Link
+                key={i}
+                to={`/juego/${char.game}/${char.slug}`}
+                className="min-w-[200px] p-4 border border-white/10 rounded-xl bg-dark hover:border-accent-primary transition-colors"
+              >
+                <p className="font-bold">{char.name}</p>
+                <p className="text-xs text-accent-primary">{gameTitle}</p>
+              </Link>
+            );
+          })}
         </motion.div>
       </section>
 
