@@ -1,0 +1,42 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "juegos"
+    label: "Juegos"
+    folder: "content"
+    create: true
+    slug: "{{slug}}"
+    filter: { field: "type", value: "game" } # Opcional si los separas por estructura
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Cover", name: "cover", widget: "image" }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - { label: "Año", name: "year", widget: "number" }
+      - { label: "Desarrollador", name: "developer", widget: "string" }
+      - { label: "Género", name: "genre", widget: "string" }
+      - { label: "Color", name: "themeColor", widget: "color" }
+
+  - name: "personajes"
+    label: "Personajes"
+    folder: "content"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Juego", name: "game", widget: "relation", collection: "juegos", searchFields: ["title"], valueField: "slug" }
+      - { label: "Rol", name: "role", widget: "string" }
+      - { label: "Facción", name: "faction", widget: "string" }
+      - { label: "Frase", name: "quote", widget: "string" }
+      - { label: "Cover", name: "cover", widget: "image" }
+      - { label: "Galería", name: "gallery", widget: "list", field: { label: "Imagen", name: "image", widget: "image" } }
+      - { label: "Etiquetas", name: "tags", widget: "list" }
+      - { label: "Orden", name: "order", widget: "number" }
+      - { label: "Color", name: "themeColor", widget: "color" }
+      - { label: "Lore", name: "body", widget: "markdown" }
