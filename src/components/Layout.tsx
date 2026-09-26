@@ -1,6 +1,6 @@
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, useLocation, useOutlet } from 'react-router-dom';
 import { ArrowUp } from 'lucide-react';
 
 export const Layout = () => {
@@ -8,6 +8,7 @@ export const Layout = () => {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const [showTopBtn, setShowTopBtn] = useState(false);
   const location = useLocation();
+  const outlet = useOutlet();
 
   useEffect(() => {
     window.addEventListener('scroll', () => setShowTopBtn(window.scrollY > 400));
@@ -49,7 +50,17 @@ export const Layout = () => {
       </nav>
 
       <main className="pt-16 min-h-screen">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.3 }}
+          >
+            {outlet}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Footer */}

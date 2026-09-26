@@ -5,6 +5,7 @@ import { Layout } from "./components/Layout";
 import { LayoutWrapper } from "./components/LayoutWrapper";
 import { Loader } from "./components/Loader";
 import { ParticleBackground } from "./components/ParticleBackground";
+import { ScrollToTop } from "./components/ScrollToTop";
 import { Home } from "./pages/Home";
 import { Games } from "./pages/Games";
 import { Characters } from "./pages/Characters";
@@ -16,7 +17,13 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
+    const visited = sessionStorage.getItem('visited');
+    if (visited) {
+      setLoading(false);
+    } else {
+      sessionStorage.setItem('visited', 'true');
+      setTimeout(() => setLoading(false), 800);
+    }
   }, []);
 
   return (
@@ -25,18 +32,21 @@ function App() {
       <AnimatePresence>
         {loading && <Loader key="loader" />}
       </AnimatePresence>
-      <HashRouter>
-        <Routes>
-        <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="games" element={<Games />} />
-            <Route path="personajes" element={<Characters />} />
-            <Route path="juego/:slug" element={<GameDetail />} />
-            <Route path="juego/:gameSlug/:charSlug" element={<CharacterDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </HashRouter>
+      {!loading && (
+        <HashRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="games" element={<Games />} />
+              <Route path="personajes" element={<Characters />} />
+              <Route path="juego/:slug" element={<GameDetail />} />
+              <Route path="juego/:gameSlug/:charSlug" element={<CharacterDetail />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </HashRouter>
+      )}
     </LayoutWrapper>
   );
 }
