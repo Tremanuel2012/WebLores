@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { getAllGames, getAllCharacters } from "../lib/content";
+import { Image } from "../components/Image";
 
 export const Home = () => {
   const games = getAllGames();
@@ -39,10 +40,10 @@ export const Home = () => {
               className="group relative overflow-hidden rounded-2xl border border-white/10 p-1"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <img
+              <Image
                 src={game.cover}
                 alt={game.title}
-                className="w-full h-64 object-cover rounded-xl"
+                className="w-full h-64 rounded-xl"
               />
               <div className="p-4">
                 <h3 className="text-xl font-bold">{game.title}</h3>

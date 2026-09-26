@@ -3,6 +3,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { getCharacterBySlug, getCharactersByGame } from '../lib/content';
 import { LoreRenderer } from '../components/LoreRenderer';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Image } from '../components/Image';
 
 export const CharacterDetail = () => {
   const { gameSlug, charSlug } = useParams();
@@ -26,7 +27,7 @@ export const CharacterDetail = () => {
             <Link to={`/juego/${gameSlug}`} className="flex items-center text-gray-400 hover:text-white mb-8 transition-colors">
               <ArrowLeft className="w-4 h-4 mr-2" /> Volver al juego
             </Link>
-            <img src={character.cover} alt={character.name} className="w-full h-96 object-cover rounded-3xl mb-6 shadow-2xl" />
+            <Image src={character.cover} alt={character.name} className="w-full h-96 rounded-3xl mb-6 shadow-2xl" />
             <h1 className="text-5xl font-bold mb-4">{character.name}</h1>
             <div className="space-y-2 text-gray-400 mb-6">
               <p>Rol: <span className="text-white">{character.role}</span></p>
@@ -82,3 +83,4 @@ export const CharacterDetail = () => {
     </div>
   );
 };
+

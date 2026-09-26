@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getGameBySlug, getCharactersByGame } from '../lib/content';
 import { LoreRenderer } from '../components/LoreRenderer';
+import { Image } from '../components/Image';
 
 export const GameDetail = () => {
   const { slug } = useParams();
@@ -50,10 +51,10 @@ export const GameDetail = () => {
                 whileHover={{ y: -10 }}
                 className="p-6 bg-white/5 border border-white/10 rounded-2xl"
               >
-                <img
+                <Image
                   src={char.cover}
-                  className="w-full h-48 object-cover rounded-xl mb-4"
                   alt={char.name}
+                  className="w-full h-48 rounded-xl mb-4"
                 />
                 <h3 className="text-2xl font-bold mb-2">{char.name}</h3>
                 <p className="text-sm text-[var(--accent-color)] mb-4">

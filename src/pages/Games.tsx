@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Search, X, AlertCircle } from 'lucide-react';
 import { getAllGames } from '../lib/content';
+import { Image } from '../components/Image';
 
 export const Games = () => {
   const games = getAllGames();
@@ -64,7 +65,7 @@ export const Games = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 className="border border-white/10 rounded-2xl p-4 bg-white/5 hover:border-white/20 transition-colors"
               >
-                <img src={game.cover} alt={game.title} className="w-full h-48 object-cover rounded-xl mb-4" />
+                <Image src={game.cover} alt={game.title} className="w-full h-48 rounded-xl mb-4" />
                 <h2 className="text-xl font-bold">{game.title}</h2>
                 <p className="text-sm text-gray-400 mb-4">{game.genre}</p>
                 <Link to={`/juego/${game.slug}`} className="block text-center py-2 bg-accent-primary hover:bg-accent-secondary rounded-lg text-sm font-semibold transition-colors">Ver Lore</Link>
@@ -85,3 +86,4 @@ export const Games = () => {
     </div>
   );
 };
+

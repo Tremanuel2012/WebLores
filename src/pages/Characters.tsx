@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Search, X, AlertCircle } from 'lucide-react';
 import { getAllCharacters, getAllGames, getGameBySlug } from '../lib/content';
+import { Image } from '../components/Image';
 
 export const Characters = () => {
   const characters = getAllCharacters();
@@ -67,7 +68,7 @@ export const Characters = () => {
                   className="border border-white/10 rounded-2xl p-4 bg-white/5 hover:border-white/20 transition-colors"
                 >
                   <Link to={`/juego/${char.game}/${char.slug}`}>
-                    <img src={char.cover} alt={char.name} className="w-full h-64 object-cover rounded-xl mb-4" />
+                    <Image src={char.cover} alt={char.name} className="w-full h-64 rounded-xl mb-4" />
                     <h2 className="text-xl font-bold">{char.name}</h2>
                     <p className="text-sm text-gray-400">{char.role}</p>
                     <p className="text-xs text-accent-primary font-medium mb-4">{game?.title}</p>
@@ -91,3 +92,4 @@ export const Characters = () => {
     </div>
   );
 };
+
