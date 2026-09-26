@@ -45,7 +45,7 @@ export const CharacterDetail = () => {
 
         {/* Derecha: Lore */}
         <section>
-          <LoreRenderer content={character.lore} />
+          <LoreRenderer content={character.content} />
           
           {/* Navegación */}
           <div className="mt-20 flex justify-between border-t border-white/10 pt-8">

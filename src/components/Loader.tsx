@@ -1,8 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
-
-export const Loader = () => {
+ export const Loader = () => {
   return (
+    <AnimatePresence>
     <motion.div 
       className="fixed inset-0 z-[1000] bg-dark flex items-center justify-center"
       exit={{ opacity: 0 }}
@@ -16,5 +15,7 @@ export const Loader = () => {
         L
       </motion.div>
     </motion.div>
+    </AnimatePresence>
   );
 };
+

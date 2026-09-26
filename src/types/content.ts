@@ -7,6 +7,7 @@ export interface Game {
   developer: string;
   genre: string;
   themeColor: string;
+  content: string; // Cuerpo Markdown del juego
 }
 
 export interface Character {
@@ -21,5 +22,5 @@ export interface Character {
   tags: string[];
   order: number;
   themeColor: string;
-  lore: string;
+  content: string; // Cuerpo Markdown del personaje
 }

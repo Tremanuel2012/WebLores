@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+ import { useEffect, useRef } from 'react';
 
 export const ParticleBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

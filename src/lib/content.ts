@@ -19,8 +19,8 @@ const parseMarkdown = (rawContent: string) => {
 
 export const getAllGames = (): Game[] => {
   return Object.entries(gameFiles).map(([_, content]) => {
-    const { data } = parseMarkdown(content as string);
-    return { ...data } as Game;
+    const { data, content: markdownContent } = parseMarkdown(content as string);
+    return { ...data, content: markdownContent } as Game;
   });
 };
 
@@ -32,8 +32,8 @@ export const getCharactersByGame = (gameSlug: string): Character[] => {
   return Object.entries(characterFiles)
     .filter(([path]) => path.includes(`/content/${gameSlug}/`) && !path.endsWith('_game.md'))
     .map(([_, content]) => {
-      const { data, content: lore } = parseMarkdown(content as string);
-      return { ...data, lore } as Character;
+      const { data, content: markdownContent } = parseMarkdown(content as string);
+      return { ...data, content: markdownContent } as Character;
     })
     .sort((a, b) => (a.order || 0) - (b.order || 0));
 };
@@ -46,7 +46,7 @@ export const getAllCharacters = (): Character[] => {
   return Object.entries(characterFiles)
     .filter(([path]) => !path.endsWith('_game.md'))
     .map(([_, content]) => {
-      const { data, content: lore } = parseMarkdown(content as string);
-      return { ...data, lore } as Character;
+      const { data, content: markdownContent } = parseMarkdown(content as string);
+      return { ...data, content: markdownContent } as Character;
     });
 };
