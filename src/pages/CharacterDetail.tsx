@@ -48,18 +48,35 @@ export const CharacterDetail = () => {
           <LoreRenderer content={character.content} />
           
           {/* Navegación */}
-          <div className="mt-20 flex justify-between border-t border-white/10 pt-8">
-            {allChars[currentIndex - 1] ? (
-              <Link to={`/juego/${gameSlug}/${allChars[currentIndex - 1].slug}`} className="flex items-center gap-2 hover:text-accent-primary transition-colors">
-                <ChevronLeft /> {allChars[currentIndex - 1].name}
-              </Link>
-            ) : <div />}
-            {allChars[currentIndex + 1] ? (
-              <Link to={`/juego/${gameSlug}/${allChars[currentIndex + 1].slug}`} className="flex items-center gap-2 hover:text-accent-primary transition-colors">
-                {allChars[currentIndex + 1].name} <ChevronRight />
-              </Link>
-            ) : <div />}
-          </div>
+          {currentIndex !== -1 && (
+            <div className="mt-20 flex items-center justify-between border-t border-white/10 pt-8">
+              {currentIndex > 0 ? (
+                <motion.div whileHover={{ x: -5 }}>
+                  <Link 
+                    to={`/juego/${gameSlug}/${allChars[currentIndex - 1].slug}`} 
+                    className="flex items-center gap-2 text-gray-400 hover:text-accent-primary transition-colors font-medium"
+                  >
+                    <ChevronLeft /> {allChars[currentIndex - 1].name}
+                  </Link>
+                </motion.div>
+              ) : <div />}
+
+              <span className="text-gray-500 text-sm font-medium">
+                Personaje {currentIndex + 1} de {allChars.length}
+              </span>
+
+              {currentIndex < allChars.length - 1 ? (
+                <motion.div whileHover={{ x: 5 }}>
+                  <Link 
+                    to={`/juego/${gameSlug}/${allChars[currentIndex + 1].slug}`} 
+                    className="flex items-center gap-2 text-gray-400 hover:text-accent-primary transition-colors font-medium"
+                  >
+                    {allChars[currentIndex + 1].name} <ChevronRight />
+                  </Link>
+                </motion.div>
+              ) : <div />}
+            </div>
+          )}
         </section>
       </div>
     </div>
