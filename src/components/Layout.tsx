@@ -16,6 +16,7 @@ export const Layout = () => {
   const navItems = [
     { label: 'Inicio', path: '/' },
     { label: 'Juegos', path: '/games' },
+    { label: 'Personajes', path: '/personajes' },
   ];
 
   const isActive = (path: string) => location.pathname === path;

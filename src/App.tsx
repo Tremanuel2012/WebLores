@@ -7,6 +7,7 @@ import { Loader } from "./components/Loader";
 import { ParticleBackground } from "./components/ParticleBackground";
 import { Home } from "./pages/Home";
 import { Games } from "./pages/Games";
+import { Characters } from "./pages/Characters";
 import { GameDetail } from "./pages/GameDetail";
 import { CharacterDetail } from "./pages/CharacterDetail";
 import { NotFound } from "./pages/NotFound";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="games" element={<Games />} />
+            <Route path="personajes" element={<Characters />} />
             <Route path="juego/:slug" element={<GameDetail />} />
             <Route path="juego/:gameSlug/:charSlug" element={<CharacterDetail />} />
             <Route path="*" element={<NotFound />} />
