@@ -3,8 +3,8 @@ import * as yaml from 'js-yaml';
 import type { Game, Character } from '../types/content';
 
 // Importa todos los archivos markdown de content
-const gameFiles = import.meta.glob('/content/*/_game.md', { query: '?raw', import: 'default', eager: true });
-const characterFiles = import.meta.glob('/content/*/*.md', { query: '?raw', import: 'default', eager: true });
+const gameFiles = import.meta.glob('/content/games/*.md', { query: '?raw', import: 'default', eager: true });
+const characterFiles = import.meta.glob('/content/characters/*/*.md', { query: '?raw', import: 'default', eager: true });
 
 const withBase = (path: string | undefined): string => {
   if (!path) return '';
@@ -43,7 +43,7 @@ export const getGameBySlug = (slug: string): Game | undefined => {
 
 export const getCharactersByGame = (gameSlug: string): Character[] => {
   return Object.entries(characterFiles)
-    .filter(([path]) => path.includes(`/content/${gameSlug}/`) && !path.endsWith('_game.md'))
+    .filter(([path]) => path.includes(`/content/characters/${gameSlug}/`))
     .map(([_, content]) => {
       const { data, content: markdownContent } = parseMarkdown(content as string);
       return {
@@ -62,7 +62,6 @@ export const getCharacterBySlug = (gameSlug: string, charSlug: string): Characte
 
 export const getAllCharacters = (): Character[] => {
   return Object.entries(characterFiles)
-    .filter(([path]) => !path.endsWith('_game.md'))
     .map(([_, content]) => {
       const { data, content: markdownContent } = parseMarkdown(content as string);
       return {

@@ -1,16 +1,18 @@
 ﻿backend:
-  name: git-gateway
-  branch: main
+  name: 'git-gateway'
+  branch: 'main'
 
-media_folder: "public/images/uploads"
-public_folder: "/WebLores/images/uploads"
+local_backend: true
+
+media_folder: 'public/images/uploads'
+public_folder: '/WebLores/images/uploads'
+
 collections:
   - name: 'games'
     label: 'Juegos'
     label_singular: 'Juego'
-    folder: 'content'
-    create: true
-    slug: '{{fields.slug}}/_game'
+    folder: 'content/games'
+    create: true 
     identifier_field: 'title'
     summary: '{{title}} ({{genre}})'
     fields:
@@ -23,12 +25,15 @@ collections:
       - { label: 'Género', name: 'genre', widget: 'string' }
       - { label: 'Color del tema (hex)', name: 'themeColor', widget: 'string', default: '#8b5cf6' }
       - { label: 'Cuerpo (Lore)', name: 'body', widget: 'markdown' }
+
   - name: 'characters'
     label: 'Personajes'
     label_singular: 'Personaje'
-    folder: 'content'
+    folder: 'content/characters'
     create: true
-    slug: '{{fields.game}}/{{fields.slug}}'
+    nested:
+      depth: 2
+    path: '{{fields.game}}/{{fields.slug}}'
     identifier_field: 'name'
     summary: '{{name}} — {{role}}'
     fields:
@@ -43,4 +48,4 @@ collections:
       - { label: 'Tags', name: 'tags', widget: 'list', required: false, default: [] }
       - { label: 'Orden', name: 'order', widget: 'number', value_type: 'int', default: 1 }
       - { label: 'Color del tema (hex)', name: 'themeColor', widget: 'string', default: '#8b5cf6' }
-      - { label: 'Cuerpo (Lore)', name: 'body', widget: 'markdown' }
+      - { label: 'Cuerpo (Lore)', name: 'body', widget: 'markdown' } 
