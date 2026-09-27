@@ -1,14 +1,15 @@
 ---
+
 name: The Knight
 slug: the-knight
 game: hollow-knight
 role: Protagonista
 faction: Ninguna
 quote: "No voz para gritar."
-cover: /images/hollow-knight/knight.jpg
+cover: /images/characters/hollow-knight/the-knight/cover.jpg
 gallery:
-  - /images/hollow-knight/knight-1.jpg
-  - /images/hollow-knight/knight-2.jpg
+  - /images/characters/hollow-knight/the-knight/gallery-1.jpg
+  - /images/characters/hollow-knight/the-knight/gallery-2.jpg
 tags: [protagonista, recipiente]
 order: 1
 themeColor: #ffffff

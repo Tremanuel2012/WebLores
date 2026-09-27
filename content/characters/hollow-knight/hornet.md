@@ -1,15 +1,16 @@
 ---
+
 name: Hornet
 slug: hornet
 game: hollow-knight
 role: Protectora
 faction: Hallownest
 quote: "Git gud!"
-cover: /images/hollow-knight/hornet.jpg
+cover: /images/characters/hollow-knight/hornet/cover.jpg
 gallery:
-  - /images/hollow-knight/hornet-1.jpg
-  - /images/hollow-knight/hornet-2.jpg
-  - /images/hollow-knight/hornet-3.jpg
+  - /images/characters/hollow-knight/hornet/gallery-1.jpg
+  - /images/characters/hollow-knight/hornet/gallery-2.jpg
+  - /images/characters/hollow-knight/hornet/gallery-3.jpg
 tags: [protectora, guardiana]
 order: 2
 themeColor: #ef4444
