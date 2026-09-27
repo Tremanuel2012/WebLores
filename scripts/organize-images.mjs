@@ -50,10 +50,13 @@ async function organize() {
     let modifiedFilesCount = 0;
     for (const filePath of mdFiles) {
       const fullContent = await fs.readFile(filePath, 'utf8');
-      const match = fullContent.match(/^---[\s\S]*?---\n/);
+      const match = fullContent.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
       if (!match) continue;
 
-      const originalYamlStr = match[0].replace(/^---/, '').replace(/---\n$/, '');
+      const isCRLF = fullContent.includes('\r\n');
+      const eol = isCRLF ? '\r\n' : '\n';
+
+      const originalYamlStr = match[1];
       let newYamlStr = originalYamlStr;
       const data = yaml.load(originalYamlStr);
       const body = fullContent.slice(match[0].length);
@@ -116,7 +119,7 @@ async function organize() {
       }
 
       if (changedInFile) {
-        await fs.writeFile(filePath, `---\n${newYamlStr}---\n${body}`);
+        await fs.writeFile(filePath, `---${eol}${newYamlStr}${eol}---${eol}${body}`);
         modifiedFilesCount++;
       }
     }
