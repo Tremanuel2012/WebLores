@@ -6,7 +6,10 @@ role: Protectora
 faction: Hallownest
 quote: "Git gud!"
 cover: /images/hollow-knight/hornet.jpg
-gallery: []
+gallery:
+  - /images/hollow-knight/hornet-1.jpg
+  - /images/hollow-knight/hornet-2.jpg
+  - /images/hollow-knight/hornet-3.jpg
 tags: [protectora, guardiana]
 order: 2
 themeColor: #ef4444

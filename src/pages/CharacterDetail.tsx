@@ -4,6 +4,7 @@ import { getCharacterBySlug, getCharactersByGame } from '../lib/content';
 import { LoreRenderer } from '../components/LoreRenderer';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Image } from '../components/Image';
+import { Gallery } from '../components/Gallery';
 
 export const CharacterDetail = () => {
   const { gameSlug, charSlug } = useParams();
@@ -48,13 +49,17 @@ export const CharacterDetail = () => {
         <section>
           <LoreRenderer content={character.content} />
           
+          <div className="mt-16">
+            <Gallery images={character.gallery} />
+          </div>
+
           {/* Navegación */}
           {currentIndex !== -1 && (
             <div className="mt-20 flex items-center justify-between border-t border-white/10 pt-8">
               {currentIndex > 0 ? (
                 <motion.div whileHover={{ x: -5 }}>
-                  <Link 
-                    to={`/juego/${gameSlug}/${allChars[currentIndex - 1].slug}`} 
+                  <Link
+                    to={`/juego/${gameSlug}/${allChars[currentIndex - 1].slug}`}
                     className="flex items-center gap-2 text-gray-400 hover:text-accent-primary transition-colors font-medium"
                   >
                     <ChevronLeft /> {allChars[currentIndex - 1].name}
@@ -68,8 +73,8 @@ export const CharacterDetail = () => {
 
               {currentIndex < allChars.length - 1 ? (
                 <motion.div whileHover={{ x: 5 }}>
-                  <Link 
-                    to={`/juego/${gameSlug}/${allChars[currentIndex + 1].slug}`} 
+                  <Link
+                    to={`/juego/${gameSlug}/${allChars[currentIndex + 1].slug}`}
                     className="flex items-center gap-2 text-gray-400 hover:text-accent-primary transition-colors font-medium"
                   >
                     {allChars[currentIndex + 1].name} <ChevronRight />

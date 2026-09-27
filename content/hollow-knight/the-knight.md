@@ -6,7 +6,9 @@ role: Protagonista
 faction: Ninguna
 quote: "No voz para gritar."
 cover: /images/hollow-knight/knight.jpg
-gallery: []
+gallery:
+  - /images/hollow-knight/knight-1.jpg
+  - /images/hollow-knight/knight-2.jpg
 tags: [protagonista, recipiente]
 order: 1
 themeColor: #ffffff
