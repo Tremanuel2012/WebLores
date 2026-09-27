@@ -5,7 +5,7 @@ game: world-of-warcraft
 role: Enemigo
 faction: La plaga
 quote: La luz no te protegerá aquí paladín ¡Nada te protegerá!
-cover: warcraft-lich-king-sword-armor-look-wallpaper-preview.jpg
+cover: /images/characters/world-of-warcraft/arthas-menethil/cover.jpg
 tags:
   - DeathKnight
   - Boss
