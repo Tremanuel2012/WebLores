@@ -1,42 +1,46 @@
-backend:
+﻿backend:
   name: git-gateway
   branch: main
 
 media_folder: "public/images/uploads"
-public_folder: "/images/uploads"
-
+public_folder: "/WebLores/images/uploads"
 collections:
-  - name: "juegos"
-    label: "Juegos"
-    folder: "content"
+  - name: 'games'
+    label: 'Juegos'
+    label_singular: 'Juego'
+    folder: 'content'
     create: true
-    slug: "{{slug}}"
-    filter: { field: "type", value: "game" } # Opcional si los separas por estructura
+    slug: '{{fields.slug}}/_game'
+    identifier_field: 'title'
+    summary: '{{title}} ({{genre}})'
     fields:
-      - { label: "Título", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - { label: "Cover", name: "cover", widget: "image" }
-      - { label: "Descripción", name: "description", widget: "text" }
-      - { label: "Año", name: "year", widget: "number" }
-      - { label: "Desarrollador", name: "developer", widget: "string" }
-      - { label: "Género", name: "genre", widget: "string" }
-      - { label: "Color", name: "themeColor", widget: "color" }
-
-  - name: "personajes"
-    label: "Personajes"
-    folder: "content"
+      - { label: 'Título', name: 'title', widget: 'string' }
+      - { label: 'Slug (URL)', name: 'slug', widget: 'string', hint: 'Ej: hollow-knight' }
+      - { label: 'Portada', name: 'cover', widget: 'image' }
+      - { label: 'Descripción', name: 'description', widget: 'text' }
+      - { label: 'Año', name: 'year', widget: 'number', value_type: 'int' }
+      - { label: 'Desarrollador', name: 'developer', widget: 'string' }
+      - { label: 'Género', name: 'genre', widget: 'string' }
+      - { label: 'Color del tema (hex)', name: 'themeColor', widget: 'string', default: '#8b5cf6' }
+      - { label: 'Cuerpo (Lore)', name: 'body', widget: 'markdown' }
+  - name: 'characters'
+    label: 'Personajes'
+    label_singular: 'Personaje'
+    folder: 'content'
     create: true
-    slug: "{{slug}}"
+    slug: '{{fields.game}}/{{fields.slug}}'
+    identifier_field: 'name'
+    summary: '{{name}} — {{role}}'
     fields:
-      - { label: "Nombre", name: "name", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - { label: "Juego", name: "game", widget: "relation", collection: "juegos", searchFields: ["title"], valueField: "slug" }
-      - { label: "Rol", name: "role", widget: "string" }
-      - { label: "Facción", name: "faction", widget: "string" }
-      - { label: "Frase", name: "quote", widget: "string" }
-      - { label: "Cover", name: "cover", widget: "image" }
-      - { label: "Galería", name: "gallery", widget: "list", field: { label: "Imagen", name: "image", widget: "image" } }
-      - { label: "Etiquetas", name: "tags", widget: "list" }
-      - { label: "Orden", name: "order", widget: "number" }
-      - { label: "Color", name: "themeColor", widget: "color" }
-      - { label: "Lore", name: "body", widget: "markdown" }
+      - { label: 'Nombre', name: 'name', widget: 'string' }
+      - { label: 'Slug (URL)', name: 'slug', widget: 'string', hint: 'Ej: hornet' }
+      - { label: 'Juego (slug)', name: 'game', widget: 'string', hint: 'Ej: hollow-knight' }
+      - { label: 'Rol', name: 'role', widget: 'string' }
+      - { label: 'Facción', name: 'faction', widget: 'string' }
+      - { label: 'Cita', name: 'quote', widget: 'text' }
+      - { label: 'Retrato', name: 'cover', widget: 'image' }
+      - { label: 'Galería', name: 'gallery', widget: 'list', required: false, field: { label: 'Imagen', name: 'image', widget: 'image' } }
+      - { label: 'Tags', name: 'tags', widget: 'list', required: false, default: [] }
+      - { label: 'Orden', name: 'order', widget: 'number', value_type: 'int', default: 1 }
+      - { label: 'Color del tema (hex)', name: 'themeColor', widget: 'string', default: '#8b5cf6' }
+      - { label: 'Cuerpo (Lore)', name: 'body', widget: 'markdown' }
