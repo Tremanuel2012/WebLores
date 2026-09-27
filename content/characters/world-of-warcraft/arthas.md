@@ -7,9 +7,9 @@ faction: La plaga
 quote: La luz no te protegerá aquí paladín ¡Nada te protegerá!
 cover: /images/characters/world-of-warcraft/arthas-menethil/cover.jpg
 gallery:
-  - arthas.jpg
-  - arthas-paladin.webp
-  - arthas-dk.jpg
+  - /images/characters/world-of-warcraft/arthas-menethil/gallery-1.jpg
+  - /images/characters/world-of-warcraft/arthas-menethil/gallery-2.webp
+  - /images/characters/world-of-warcraft/arthas-menethil/gallery-3.jpg
 tags:
   - DeathKnight
   - Boss
