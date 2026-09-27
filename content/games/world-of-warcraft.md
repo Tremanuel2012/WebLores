@@ -6,5 +6,5 @@ description: Una aventura épica en el reino de Warcraft.
 year: 2000
 developer: Blizzard
 genre: MMORPG
-themeColor: ""
+themeColor: "#dc2626"
 ---
