@@ -33,7 +33,7 @@ collections:
     create: true
     nested:
       depth: 2
-    path: '{{fields.game}}/{{fields.slug}}'
+    path: '{{game}}/{{slug}}'
     identifier_field: 'name'
     summary: '{{name}} — {{role}}'
     fields:
