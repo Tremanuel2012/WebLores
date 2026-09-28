@@ -16,10 +16,10 @@ const withBase = (path: string | undefined): string => {
 };
 
 const parseMarkdown = (rawContent: string) => {
-  const match = rawContent.match(/^---[\s\S]*?---\n/);
+  const match = rawContent.match(/^---\r?\n([\s\S]*?)\r?\n---(\r?\n|$)/);
   if (!match) return { data: {}, content: rawContent };
   
-  const frontmatterRaw = match[0].replace(/---/g, '').trim();
+  const frontmatterRaw = match[1];
   const content = rawContent.slice(match[0].length);
   
   const data = yaml.load(frontmatterRaw) as any;

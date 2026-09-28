@@ -14,7 +14,7 @@ export const Games = () => {
   
   const filteredGames = games.filter(g => 
     (filter === 'Todos' || g.genre === filter) &&
-    g.title.toLowerCase().includes(search.toLowerCase())
+    (g.title || '').toLowerCase().includes((search || '').toLowerCase())
   );
 
   return (
@@ -66,8 +66,8 @@ export const Games = () => {
                 className="border border-white/10 rounded-2xl p-4 bg-white/5 hover:border-white/20 transition-colors"
               >
                 <Image src={game.cover} alt={game.title} className="w-full h-48 rounded-xl mb-4" />
-                <h2 className="text-xl font-bold">{game.title}</h2>
-                <p className="text-sm text-gray-400 mb-4">{game.genre}</p>
+                <h2 className="text-xl font-bold">{game.title || 'Sin título'}</h2>
+                <p className="text-sm text-gray-400 mb-4">{game.genre || 'Sin género'}</p>
                 <Link to={`/juego/${game.slug}`} className="block text-center py-2 bg-accent-primary hover:bg-accent-secondary rounded-lg text-sm font-semibold transition-colors">Ver Lore</Link>
               </motion.div>
             ))

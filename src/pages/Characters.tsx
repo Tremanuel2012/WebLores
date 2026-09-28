@@ -13,7 +13,7 @@ export const Characters = () => {
 
   const filteredCharacters = characters.filter(c => 
     (filterGame === 'Todos' || c.game === filterGame) &&
-    c.name.toLowerCase().includes(search.toLowerCase())
+    (c.name || '').toLowerCase().includes((search || '').toLowerCase())
   );
 
   return (
@@ -69,9 +69,9 @@ export const Characters = () => {
                 >
                   <Link to={`/juego/${char.game}/${char.slug}`}>
                     <Image src={char.cover} alt={char.name} className="w-full h-64 rounded-xl mb-4" />
-                    <h2 className="text-xl font-bold">{char.name}</h2>
-                    <p className="text-sm text-gray-400">{char.role}</p>
-                    <p className="text-xs text-accent-primary font-medium mb-4">{game?.title}</p>
+                    <h2 className="text-xl font-bold">{char.name || 'Sin nombre'}</h2>
+                    <p className="text-sm text-gray-400">{char.role || 'Sin rol definido'}</p>
+                    <p className="text-xs text-accent-primary font-medium mb-4">{game?.title || 'Juego desconocido'}</p>
                     <div className="block text-center py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm font-semibold transition-colors">Ver Lore</div>
                   </Link>
                 </motion.div>

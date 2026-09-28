@@ -8,3 +8,4 @@ developer: Blizzard
 genre: MMORPG
 themeColor: "#dc2626"
 ---
+
