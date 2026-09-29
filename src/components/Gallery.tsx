@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, type PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Image } from './Image';
@@ -12,6 +12,20 @@ export const Gallery = ({ images }: GalleryProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const draggedRef = useRef(false);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setSlideWidth(containerRef.current.offsetWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
 
   if (!images || images.length === 0) return null;
 
@@ -25,6 +39,10 @@ export const Gallery = ({ images }: GalleryProps) => {
     setCurrentSlide((prev) => (prev - 1 + total) % total);
   };
 
+  const handleDragStart = () => {
+    draggedRef.current = true;
+  };
+
   const handleDragEnd = (_: any, info: PanInfo) => {
     const threshold = 50;
     if (info.offset.x < -threshold) {
@@ -32,9 +50,14 @@ export const Gallery = ({ images }: GalleryProps) => {
     } else if (info.offset.x > threshold) {
       prev();
     }
+    // Resetear tras un pequeño delay para que el onClick no se dispare
+    setTimeout(() => {
+      draggedRef.current = false;
+    }, 100);
   };
 
-  const openLightbox = (index: number) => {
+  const handleImageClick = (index: number) => {
+    if (draggedRef.current) return;
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
@@ -44,7 +67,10 @@ export const Gallery = ({ images }: GalleryProps) => {
       <h2 className="text-3xl font-bold mb-8">Galería</h2>
 
       {/* Contenedor del Carrusel */}
-      <div className="group relative w-full overflow-hidden">
+      <div
+        ref={containerRef}
+        className="group relative w-full overflow-hidden"
+      >
         {/* Flechas de Navegación */}
         {total > 1 && (
           <>
@@ -67,16 +93,17 @@ export const Gallery = ({ images }: GalleryProps) => {
         <motion.div
           className="flex cursor-grab active:cursor-grabbing"
           drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
+          dragMomentum={false}
+          onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
-          animate={{ x: `-${currentSlide * 100}%` }}
+          animate={{ x: -currentSlide * slideWidth }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         >
           {images.map((img, i) => (
             <div
               key={i}
               className="w-full shrink-0 px-2 sm:px-4"
-              onClick={() => openLightbox(i)}
+              onClick={() => handleImageClick(i)}
             >
               <div className="w-[85%] md:w-[60%] mx-auto overflow-hidden rounded-2xl">
                 <Image
