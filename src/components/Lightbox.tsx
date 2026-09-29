@@ -100,13 +100,10 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
               </button>
             </>
           )}
-
-          <div className="absolute -bottom-10 left-0 right-0 text-center text-white/70">
-            {index + 1} / {images.length}
-          </div>
         </div>
       </motion.div>
     </AnimatePresence>
   );
 };
+
 
