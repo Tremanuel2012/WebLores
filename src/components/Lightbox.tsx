@@ -43,17 +43,19 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
-        onClick={onClose}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
+        }}
       >
         <button
           data-lenis-prevent
           className="absolute top-6 right-6 text-white/70 hover:text-white cursor-pointer p-3"
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
             onClose();
-          }}
-        >
+                }}
+              >
           <X size={32} />
         </button>
 
@@ -71,9 +73,10 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
             } else if (info.offset.x > 80) {
               navigate(index > 0 ? index - 1 : images.length - 1);
             }
-          }}
-          style={{ touchAction: 'pan-y', pointerEvents: 'auto' }}
-        >
+                }}
+          onClick={(e) => e.stopPropagation()}
+          style={{ touchAction: 'pan-y' }}
+              >
           <img
             src={images[index]}
             alt={`Galería ${index + 1}`}
@@ -110,9 +113,10 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           <div className="absolute -bottom-10 left-0 right-0 text-center text-white/70">
             {index + 1} / {images.length}
           </div>
-        </motion.div>
+      </motion.div>
       </motion.div>
     </AnimatePresence>
   );
 };
+
 
