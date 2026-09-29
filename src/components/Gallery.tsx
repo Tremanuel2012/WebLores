@@ -91,8 +91,10 @@ export const Gallery = ({ images }: GalleryProps) => {
 
         {/* Slides */}
         <motion.div
-          className="flex cursor-grab active:cursor-grabbing"
+          className="flex cursor-grab active:cursor-grabbing select-none"
+          style={{ touchAction: 'pan-y' }}
           drag="x"
+          dragDirectionLock={true}
           dragMomentum={false}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
@@ -146,3 +148,4 @@ export const Gallery = ({ images }: GalleryProps) => {
     </div>
   );
 };
+
