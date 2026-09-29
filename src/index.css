@@ -42,3 +42,20 @@
     color: #fff;
   }
 }
+
+@keyframes particle-pulse {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 0.7; }
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  will-change: opacity;
+  animation: particle-pulse var(--duration, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+

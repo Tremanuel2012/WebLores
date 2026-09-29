@@ -5,6 +5,7 @@ import { Layout } from "./components/Layout";
 import { LayoutWrapper } from "./components/LayoutWrapper";
 import { Loader } from "./components/Loader";
 import { ParticleBackground } from "./components/ParticleBackground";
+import { MobileParticles } from "./components/MobileParticles";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { Home } from "./pages/Home";
 import { Games } from "./pages/Games";
@@ -15,6 +16,13 @@ import { NotFound } from "./pages/NotFound";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const visited = sessionStorage.getItem('visited');
@@ -28,7 +36,7 @@ function App() {
 
   return (
     <LayoutWrapper>
-      <ParticleBackground />
+      {isMobile ? <MobileParticles /> : <ParticleBackground />}
       <AnimatePresence>
         {loading && <Loader key="loader" />}
       </AnimatePresence>
