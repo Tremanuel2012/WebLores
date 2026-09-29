@@ -27,13 +27,22 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
   return (
     <AnimatePresence>
       <motion.div
+        data-lenis-prevent
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
         onClick={onClose}
       >
-        <button className="absolute top-6 right-6 text-white/70 hover:text-white" onClick={onClose}>
+        <button
+          data-lenis-prevent
+          className="absolute top-6 right-6 text-white/70 hover:text-white cursor-pointer p-3"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            onClose();
+          }}
+        >
           <X size={32} />
         </button>
 
@@ -42,7 +51,17 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           className="relative max-h-[85vh] max-w-[90vw]"
-          onClick={(e) => e.stopPropagation()}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(_, info) => {
+            if (info.offset.x < -80) {
+              onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0);
+            } else if (info.offset.x > 80) {
+              onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1);
+            }
+          }}
+          style={{ touchAction: 'pan-y', pointerEvents: 'auto' }}
         >
           <img
             src={images[currentIndex]}
@@ -53,14 +72,24 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           {images.length > 1 && (
             <>
               <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2"
-                onClick={() => onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1)}
+                data-lenis-prevent
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white cursor-pointer p-3"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1);
+                }}
               >
                 <ChevronLeft size={48} />
               </button>
               <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2"
-                onClick={() => onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0)}
+                data-lenis-prevent
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white cursor-pointer p-3"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0);
+                }}
               >
                 <ChevronRight size={48} />
               </button>
@@ -70,8 +99,9 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           <div className="absolute -bottom-10 left-0 right-0 text-center text-white/70">
             {currentIndex + 1} / {images.length}
           </div>
-        </motion.div>
+      </motion.div>
       </motion.div>
     </AnimatePresence>
   );
 };
+
