@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -10,19 +10,30 @@ interface LightboxProps {
 }
 
 export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: LightboxProps) => {
+  const [index, setIndex] = useState(currentIndex);
+
+  const navigate = (newIndex: number) => {
+    setIndex(newIndex);
+    onNavigate(newIndex);
+  };
+
+  useEffect(() => {
+    setIndex(currentIndex);
+  }, [currentIndex]);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1);
-      if (e.key === 'ArrowRight') onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0);
+      if (e.key === 'ArrowLeft') navigate(index > 0 ? index - 1 : images.length - 1);
+      if (e.key === 'ArrowRight') navigate(index < images.length - 1 ? index + 1 : 0);
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentIndex, images.length, onClose, onNavigate]);
+  }, [index, images.length, onClose]);
 
   return (
     <AnimatePresence>
@@ -56,16 +67,16 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           dragElastic={0.2}
           onDragEnd={(_, info) => {
             if (info.offset.x < -80) {
-              onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0);
+              navigate(index < images.length - 1 ? index + 1 : 0);
             } else if (info.offset.x > 80) {
-              onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1);
+              navigate(index > 0 ? index - 1 : images.length - 1);
             }
           }}
           style={{ touchAction: 'pan-y', pointerEvents: 'auto' }}
         >
           <img
-            src={images[currentIndex]}
-            alt={`Galería ${currentIndex + 1}`}
+            src={images[index]}
+            alt={`Galería ${index + 1}`}
             className="max-h-[85vh] max-w-[90vw] object-contain rounded-lg"
           />
 
@@ -77,7 +88,7 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
-                  onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1);
+                  navigate(index > 0 ? index - 1 : images.length - 1);
                 }}
               >
                 <ChevronLeft size={48} />
@@ -88,7 +99,7 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
-                  onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0);
+                  navigate(index < images.length - 1 ? index + 1 : 0);
                 }}
               >
                 <ChevronRight size={48} />
@@ -97,9 +108,9 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           )}
 
           <div className="absolute -bottom-10 left-0 right-0 text-center text-white/70">
-            {currentIndex + 1} / {images.length}
+            {index + 1} / {images.length}
           </div>
-      </motion.div>
+        </motion.div>
       </motion.div>
     </AnimatePresence>
   );
