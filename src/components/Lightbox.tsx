@@ -51,7 +51,6 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           data-lenis-prevent
           className="absolute top-6 right-6 text-white/70 hover:text-white cursor-pointer p-3"
                 onClick={(e) => {
-                  e.stopPropagation();
                   e.preventDefault();
             onClose();
                 }}
@@ -59,11 +58,11 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           <X size={32} />
         </button>
 
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-          className="relative max-h-[85vh] max-w-[90vw]"
+        <div className="relative max-h-[85vh] max-w-[90vw]">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
@@ -74,7 +73,6 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
               navigate(index > 0 ? index - 1 : images.length - 1);
             }
                 }}
-          onClick={(e) => e.stopPropagation()}
           style={{ touchAction: 'pan-y' }}
               >
           <img
@@ -82,28 +80,21 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
             alt={`Galería ${index + 1}`}
             className="max-h-[85vh] max-w-[90vw] object-contain rounded-lg"
           />
+      </motion.div>
 
           {images.length > 1 && (
             <>
               <button
                 data-lenis-prevent
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white cursor-pointer p-3"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  navigate(index > 0 ? index - 1 : images.length - 1);
-                }}
+                onClick={() => navigate(index > 0 ? index - 1 : images.length - 1)}
               >
                 <ChevronLeft size={48} />
               </button>
               <button
                 data-lenis-prevent
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white cursor-pointer p-3"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  navigate(index < images.length - 1 ? index + 1 : 0);
-                }}
+                onClick={() => navigate(index < images.length - 1 ? index + 1 : 0)}
               >
                 <ChevronRight size={48} />
               </button>
@@ -113,10 +104,9 @@ export const Lightbox = ({ images, currentIndex, onClose, onNavigate }: Lightbox
           <div className="absolute -bottom-10 left-0 right-0 text-center text-white/70">
             {index + 1} / {images.length}
           </div>
-      </motion.div>
+        </div>
       </motion.div>
     </AnimatePresence>
   );
 };
-
 
